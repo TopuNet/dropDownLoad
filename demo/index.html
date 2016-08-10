@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style media="screen">
+        * {margin: 0; padding: 0;}
+        .wrap {width: 100vw; height: 150vw; background: url('images/android.png') no-repeat; background-size: 100vw; position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto;}
+        .list {list-style: none; position: absolute; width: 66.5vw; height: 96vw; top: 34vw; left: 4.6vw; overflow: scroll;}
+        .list li {background: #eaeaea; padding: 0 2vw 3vw 2vw;}
+        .list li .box {height: 18vw; background: #fff; border-radius: 2vw;}
+        .list li .box img {width: 47%; height: 18vw; border-top-left-radius: 2vw; border-bottom-left-radius: 2vw; float: left;}
+        .list li .right {float: right; width: 53%; height: 100%; text-align: center; line-height: 18vw; font-size: 3vw;}
+        .list li:first-child {margin-top: 30vw;}
+        .loader .ball-clip-rotate > div {border: 2px solid #fb7299; border-bottom-color: transparent;}
+        .loader .ball-clip-rotate-multiple > div {border: 2px solid #fb7299; border-bottom-color: transparent; border-top-color: transparent;}
+        .loader .ball-clip-rotate-multiple > div:last-child {border: 2px solid #fb7299;}
+        .loader .line-scale-pulse-out-rapid > div {background-color: #fb7299; width: 0.5vw; height: 5vw;}
+        .loader .ball-spin-fade-loader > div {background-color: #fb7299;}
+        .loader .ball-scale-random > div {background-color: #fb7299;}
+        .loader .triangle-skew-spin > div {border-bottom-color: #fb7299;}
+        #left {position: absolute; left: 0; top: 135vw; left: 16vw;}
+        #right {position: absolute; left: 0; top: 135vw; left: 53vw;}
+
+        #stinger {position: absolute; top: 0; left: 0; width: 19vw;}
+    </style>
+    <!-- <link rel="stylesheet" href="inc/loaders.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="inc/animate.css" media="screen" title="no title" charset="utf-8"> -->
+    <link rel="stylesheet" href="inc/bootstrap.min.css" media="screen" title="no title">
+<body>
+    <div class="wrap">
+        <ul class="list">
+            <li>
+                <div class="box">
+                    <img src="images/752720a4b6c578cee3e7d0cff6277e63a328139b.jpg_320x200.jpg" alt="" />
+                    <div class="right">
+                        2333333333333
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <img src="images/752720a4b6c578cee3e7d0cff6277e63a328139b.jpg_320x200.jpg" alt="" />
+                    <div class="right">
+                        2333333333333
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <img src="images/752720a4b6c578cee3e7d0cff6277e63a328139b.jpg_320x200.jpg" alt="" />
+                    <div class="right">
+                        2333333333333
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <img src="images/752720a4b6c578cee3e7d0cff6277e63a328139b.jpg_320x200.jpg" alt="" />
+                    <div class="right">
+                        2333333333333
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <img src="images/752720a4b6c578cee3e7d0cff6277e63a328139b.jpg_320x200.jpg" alt="" />
+                    <div class="right">
+                        2333333333333
+                    </div>
+                </div>
+            </li>
+            <div class="loader" style="background: #eaeaea; min-height: 13vw;"></div>
+        </ul>
+    <div id="left" class="dropup">
+        <button type="button" style="background: #fff;" class="btn dropdown-toggle btn-xs glyphicon glyphicon-align-justify" id="dropdownMenu1"
+      data-toggle="dropdown">
+   </button>
+   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewLoading('小圈圈')">小圈圈</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewLoading('邪恶律动')">邪恶律动</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewLoading('冒泡')">
+            冒泡
+         </a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewLoading('金字塔')">金字塔</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewLoading('邪王真眼')">邪王真眼</a>
+      </li>
+   </ul>
+    </div>
+    <div id="right" class="dropup">
+        <button type="button" style="background: #fff;" class="btn dropdown-toggle btn-xs glyphicon glyphicon-align-justify" id="dropdownMenu1"
+      data-toggle="dropdown">
+   </button>
+   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('pulse')">点水</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('rubberBand')">
+            橡皮筋
+         </a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('shake')">一起摇摆</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('swing')">悬挂秋千</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('wobble')">大摇大摆</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('rotateIn')">大风车</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('bounceIn')">弹性</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('bounceInDown')">弹性(下)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('bounceInLeft')">弹性(左)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('bounceInRight')">弹性(右)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('fadeIn')">淡出</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('fadeInDown')">淡出(下)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('fadeInLeft')">淡出(左)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('fadeInRight')">淡出(右)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('zoomIn')">放大</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('zoomInDown')">放大(下)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('flipInX')">翻转(X)</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="javascript:previewInsert('flipInY')">翻转(Y)</a>
+      </li>
+   </ul>
+    </div>
+</div>
+<div id="stinger" style="background: url('images/3b7250b30b0e56fe354f6759694009d5.gif'); width: 76px; height: 44px;"></div>
+</body>
+<script type="text/javascript" src="jq/require.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="jq/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="jq/bootstrap.min.js" charset="utf-8"></script>
+
+<!-- <script type="text/javascript" src="dropDownLoading v1.0.0.js"></script> -->
+<script type="text/javascript">
+    require(['jq/dropDownLoad v1.0.1.js'], function (test) {
+        (function () {
+            return previewLoading = function (name) {
+                test.opt.presetLoadingAnime = name;
+                test.isUp = false;
+                test.load();
+                test.rolling(obj[0].scrollHeight - obj.height());
+            };
+        })(name);
+
+        (function () {
+            return previewInsert = function (name) {
+                test.opt.presetInsertAnime = name;
+                test.isUp = true;
+                test.crtApd();
+                test.rolling(obj[0].scrollHeight - obj.height());
+            };
+        })(name);
+
+        var obj = $('.wrap ul.list'),
+            objLi = obj.find('li'),
+            stinger = $('#stinger'),
+            opt = {
+                main: 'ul.list',    // 主要盒 默认为 Document
+                range: null,    // 滚动阀值 支持 vw | vh 单位 距离底部多少时触发加载 默认值为 Loader 盒的高度
+                eleWrap: '.loader',    // 插入内容的盒子 默认为主要盒
+                insertMode: 'before',    // 插入模式 append(默认) | before | after | prepend
+                loader: '.loader',    // Loader 盒 放楼下内置的加载动画
+                presetLoadingAnime: '',    // 预置加载动画 默认为 '小圈圈'
+                presetInsertAnime: '',    // 预置载入动画 默认为 '大风车'
+
+                // 构建 DOM 模版 数据为 JSON 形式时 创建出的 DOM 的结构 默认值为一个 DIV 元素 data-name 属性和数据名称对应 IMG标签数据默认装载到其 src 属性内
+                // Ajax JSON 数据页写法 请参照 Demo 文件
+                pattern: '<li><div class="box"><img data-name="url" src="" alt="" /><div class="right" data-name="content"></div></div></li>',
+
+                // 以下俩个参数可接收函数 数据加载完成后执行 如需滚动到功能 可接收一个 Number(px) | String -> 比如 '10px' '10vw' 等类型的值 也可让函数返回这两个类型的值 触发滚动
+                exceedRolling: null,    // 内容超过视区后
+                lowerRolling: '',    // 内容不超出视区 默认为滚动到加载内容的末尾(加载动画之上) 如需取消默认行为 传 Null
+
+                // Ajax
+                url: 'ajax_json.html',
+                type: 'GET',    // 默认 GET 方式
+                ajaxData: {},    // Ajax 传参
+                page: 0,    // 默认值为 0 起始页数 程序中自行累加
+                totalPage: null,    // 总页数
+
+                // 到达总页数后的回调 可接收 Function 和 String 默认行为在 Loader 盒内装载一条提示 可传 String 自定义其内容 如需取消默认行为 传 Null
+                end: '<p style="color: #6f6f6f;">已完成加载</p>'
+        };
+        test.init(opt);
+
+        var temp = test.load();
+
+        temp('#stinger');
+    });
+</script>
+</html>
