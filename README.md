@@ -1,4 +1,4 @@
-# dropDownLoad 插件 v1.1.1     ![233](http://i0.hdslb.com/icon/16471b1b26636f263a21115df68cb769.gif)
+# dropDownLoad 插件 v1.1.1     ![233](https://raw.githubusercontent.com/TopuNet/dropDownLoad/master/demo/images/16471b1b26636f263a21115df68cb769.gif)
 ### 下拉加载插件 主要实现下滑翻页的功能 提供一套完整的流程 包括加载动画、插入动画 以及各种状态下的事件处理
 <br />
 <br />
