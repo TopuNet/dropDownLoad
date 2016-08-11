@@ -25,8 +25,6 @@
 
         #stinger {position: absolute; top: 0; left: 0; width: 19vw;}
     </style>
-    <!-- <link rel="stylesheet" href="inc/loaders.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="inc/animate.css" media="screen" title="no title" charset="utf-8"> -->
     <link rel="stylesheet" href="inc/bootstrap.min.css" media="screen" title="no title">
 <body>
     <div class="wrap">
@@ -167,9 +165,9 @@
 <script type="text/javascript" src="jq/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="jq/bootstrap.min.js" charset="utf-8"></script>
 
-<!-- <script type="text/javascript" src="dropDownLoading v1.0.0.js"></script> -->
+<!-- <script type="text/javascript" src="dropDownLoad.js"></script> -->
 <script type="text/javascript">
-    require(['jq/dropDownLoad v1.0.1.js'], function (test) {
+    require(['jq/dropDownLoad'], function (test) {
         (function () {
             return previewLoading = function (name) {
                 test.opt.presetLoadingAnime = name;
@@ -197,6 +195,7 @@
                 eleWrap: '.loader',    // 插入内容的盒子 默认为主要盒
                 insertMode: 'before',    // 插入模式 append(默认) | before | after | prepend
                 loader: '.loader',    // Loader 盒 放楼下内置的加载动画
+                animeCssPath: 'inc',    // Anime CSS 路径 默认为 inc 目录下
                 presetLoadingAnime: '',    // 预置加载动画 默认为 '小圈圈'
                 presetInsertAnime: '',    // 预置载入动画 默认为 '大风车'
 
