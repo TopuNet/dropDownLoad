@@ -1,7 +1,7 @@
 /*
     Suscc
     20160811
-    下拉加载插件 v1.1.1
+    下拉加载插件 v1.1.2
 */
 /* ----------------------------------------------------------------------------
                                     // --- //
@@ -126,8 +126,13 @@ var dropDownLoad = {
                 this.opt.range = this.loaderHig;
             };
 
+            if (this.mainAllHig - this.mainHig <= 0) {
+                this.loader.hide();
+                return;
+            };
+
             // 判断初始数据是否够一屏 如果够就显示加载动画
-            if (!this.mainAllHig - this.mainHig <= 0 && animate) {
+            if (animate) {
                 style = {
                     '小圈圈': '<div class="loader-inner ball-clip-rotate"><div></div></div>',
                     '金字塔': '<div class="loader-inner triangle-skew-spin"><div></div></div>',

@@ -1,4 +1,4 @@
-# dropDownLoad 插件 v1.1.1     ![233](https://raw.githubusercontent.com/TopuNet/dropDownLoad/master/demo/images/16471b1b26636f263a21115df68cb769.gif)
+# dropDownLoad 插件 v1.1.2     ![233](https://raw.githubusercontent.com/TopuNet/dropDownLoad/master/demo/images/16471b1b26636f263a21115df68cb769.gif)
 ### 下拉加载插件 主要实现下滑翻页的功能 提供一套完整的流程 包括加载动画、插入动画 以及各种状态下的事件处理
 <br />
 <br />
@@ -87,3 +87,6 @@ dropDownLoad.init(opt);
 	2. 增加 animeCssPath 参数 可自定义 css 所在路径
 	3. 修复 totalPage 参数为空时 页数不自增的问题
 	4. 细节上的优化 更加完善的 README
+
+### v1.1.2
+	1. 修复初始内容不够一屏时 加载动画一直显示的问题
