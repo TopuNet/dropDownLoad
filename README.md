@@ -1,4 +1,4 @@
-# dropDownLoad 插件 v1.1.2     ![233](https://raw.githubusercontent.com/TopuNet/dropDownLoad/master/demo/images/16471b1b26636f263a21115df68cb769.gif)
+# dropDownLoad 插件 v2.0.1     ![233](https://raw.githubusercontent.com/TopuNet/dropDownLoad/master/demo/images/16471b1b26636f263a21115df68cb769.gif)
 ### 下拉加载插件 主要实现下滑翻页的功能 提供一套完整的流程 包括加载动画、插入动画 以及各种状态下的事件处理
 <br />
 <br />
@@ -35,9 +35,9 @@ var opt = {
 	presetLoadingAnime: '',    // 预置加载动画 默认为 '小圈圈'
 	presetInsertAnime: '',    // 预置载入动画 默认为 '大风车'
 
-	// 构建 DOM 模版 数据为 JSON 形式时 创建出的 DOM 的结构 默认值为一个 DIV 元素 data-name 属性和数据名称对应 IMG标签数据默认装载到其 src 属性内
-	// Ajax JSON 数据页写法 请参照 “AJax Json形式示例” 文件
-	pattern: '<li><div class="box"><img data-name="url" src="" alt="" /><div class="right" data-name="content"></div></div></li>',
+	// DOM 模版 数据为 Obj 形式时 创建出的 DOM 的结构 装载数据字段 ~{数据 KEY }~ 和数据页名称对应
+	// Ajax 页写法 请参照 “AJax示例” 文件
+	pattern: '<li><div class="box"><img src="~{url}~" alt="" /><div class="right">~{content}~</div></div></li>',
 
 	// 以下俩个参数可接收函数 数据加载完成后执行 如需滚动到功能 可接收一个 Number(px) | String -> 比如 '10px' '10vw' 等类型的值 也可让函数返回这两个类型的值 触发滚动
 	exceedRolling: function () {
@@ -90,3 +90,9 @@ dropDownLoad.init(opt);
 
 ### v1.1.2
 	1. 修复初始内容不够一屏时 加载动画一直显示的问题
+
+### v2.0.1(啊哈哈哈哈)
+	1. 完善动态构建 Dom Ajax 数据装载形式
+	2. 添加对完整 Html 结构的 Ajax 加载方式的载入动画的支持
+	3. 修复 Zepto 下加载动画不居中的问题
+	4. 细节上的优化 更加完善的 README

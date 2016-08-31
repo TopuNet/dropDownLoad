@@ -1,7 +1,7 @@
 /*
     Suscc
-    20160811
-    下拉加载插件 v1.1.2
+    20160831
+    滑屏加载插件 v2.0.1
 */
 /* ----------------------------------------------------------------------------
                                     // --- //
@@ -17,9 +17,9 @@ animeCssPath: './dist/app/css',    // Anime CSS 路径 默认为 inc 目录下
 presetLoadingAnime: '',    // 预置加载动画 默认为 '小圈圈'
 presetInsertAnime: '',    // 预置载入动画 默认为 '大风车'
 
-// 构建 DOM 模版 数据为 JSON 形式时 创建出的 DOM 的结构 默认值为一个 DIV 元素 data-name 属性和数据名称对应 IMG标签数据默认装载到其 src 属性内
-// Ajax JSON 数据页写法 请参照 “AJax Json形式示例” 文件
-pattern: '<li><div class="box"><img data-name="url" src="" alt="" /><div class="right" data-name="content"></div></div></li>',
+// DOM 模版 数据为 Obj 形式时 创建出的 DOM 的结构 装载数据字段 ~{数据 KEY }~ 和数据页名称对应
+// Ajax 页写法 请参照 “AJax示例” 文件
+pattern: '<li><div class="box"><img src="~{imgUrl}~" alt="~{describe}~" /><div class="right">~{content}~</div></div></li>',
 
 // 以下俩个参数可接收函数 数据加载完成后执行 如需滚动到功能 可接收一个 Number(px) | String -> 比如 '10px' '10vw' 等类型的值 也可让函数返回这两个类型的值 触发滚动
 exceedRolling: function () {
@@ -43,6 +43,8 @@ var dropDownLoad = {
         animeCssPath: 'inc',
         presetLoadingAnime: '小圈圈',    // 默认加载动画
         presetInsertAnime: 'rotateIn',    // 默认载入动画
+
+        pattern: '→_→ 您看看自己是否忘了写些什么~',
 
         lowerRolling: function (curAlHig) {
             if (this.loader) {
@@ -101,8 +103,8 @@ var dropDownLoad = {
                 cancelAnimationFrame(_this.timer);
                 _this.timer = null;
                 _this.main.scrollTop(_this.nRolTag);
-                if (!_this.ajaxForm) {
-                    _this.loading = false, _this.loader.show(0);
+                if (!_this.opt.presetInsertAnime) {
+                    _this.loading = false, _this.loader.css('display', 'flex');
                 };
             };
             _this.isUp = false;
@@ -306,74 +308,71 @@ var dropDownLoad = {
         this.loader.hide();
 
         var _this = this,
+            domArr = [],    // 存放创建出的所有 DOM 的数组 下面插入元素执行动画时用
+
             // 插入模式
-            appendMode = function (i) {
+            appendMode = function () {
                 var obj = $(_this.opt.eleWrap);
 
                 switch (_this.opt.insertMode) {
                     case 'append':
-                        i ? obj.append(_this._data) : obj.append(creatDom);
+                        obj.append(oDom);
                         break;
                     case 'prepend':
-                        i ? obj.prepend(_this._data) : obj.prepend(creatDom);
+                        obj.prepend(oDom);
                         break;
                     case 'after':
-                        i ? obj.after(_this._data) : obj.after(creatDom);
+                        obj.after(oDom);
                         break;
                     case 'before':
-                        i ? obj.before(_this._data) : obj.before(creatDom);
+                        obj.before(oDom);
                         break;
                 }
-            };
-
-        // 判断数据形式是否为 JSON 形式
-        if (this.ajaxForm) {
-            // Pattern 默认值（默认一个 DIV 元素 并把 Ajax 数据直接插入进去）
-            if (!this.opt.pattern) {
-                this.opt.pattern = '<div>'+ (toString(this._data) + '') +'</div>';
-            };
-
-            var childDomLength = $(this.opt.pattern).find('*').length,   // 所有元素数量
-                domDataName = $(this.opt.pattern).attr('data-name'),    // 取名牌
-                domArr = [];    // 存放创建出的所有 DOM 的数组 下面插入元素执行动画时用
-
-            for (var i = 0, dataLength = this._data.Data.length; i < dataLength; i++) {
-                var curDataRow = this._data.Data[i],    // 当前的数据对象
-                    creatDom = $(this.opt.pattern),   // 创建出的 DOM 对象
-                    childDom = creatDom.find('*');    // 所有的子元素
-
-                // 准备拿外层盒当容器
-                if (domDataName) {
-                    creatDom.html(curDataRow[domDataName]);
-                } else {
-                    // 遍历所有子元素 装载数据到对应元素内
-                    for (var n = 0; n < childDomLength; n++) {
-                        var curChild =  childDom.eq(n),   // 当前子元素
-                            childDataName = curChild.attr('data-name');   // 取名牌
-
-                        if (childDataName) {
-                            // 如果是 IMG 标签 默认数据装载位置为其 src 属性
-                            curChild.get(0).tagName == 'IMG' ? curChild.attr('src', curDataRow[childDataName]) : curChild.html(curDataRow[childDataName]);
-                        };
-                    };
-                };
-
-                // 插入动画准备
-                if (this.opt.presetInsertAnime) {
-                    creatDom.css('opacity', 0);
-                    domArr.push(creatDom);
-                    this.apdAnimeTemp = 0;
+            },
+            // 插入动画准备
+            animeReady = function () {
+                if (_this.opt.presetInsertAnime) {
+                    oDom.css({
+                        'opacity': 0,
+                        'will-change': 'transform, opacity'
+                    });
+                    domArr.push(oDom);
+                    _this.apdAnimeTemp = 0;
                 };
 
                 appendMode();
             };
 
-            // 执行插入动画
-            this.opt.presetInsertAnime && this.apdAnime(domArr);
+        // 判断数据形式是否为 JSON 形式
+        if (this.ajaxForm) {
+            for (var i = 0, dataLength = this._data.Data.length; i < dataLength; i++) {
+                var curDataRow = this._data.Data[i],
+                    creatDom = this.opt.pattern,    // 创建出的 DOM 对象
+                    oDom;
+
+                for (key in curDataRow) {
+                    var re = new RegExp('~\\{' + key + '\\}~',"gi");
+                    creatDom = creatDom.replace(re, curDataRow[key]);
+                };
+
+                oDom = $(creatDom);
+
+                animeReady();
+            };
+
         } else {
-            appendMode(true);
+            var oTempParent = $('<div></div>').append(_this._data),
+                oDom;
+
+            for (var i = 0, aChild = oTempParent.children('li'); i < aChild.length; i++) {
+                oDom = $(aChild[i]);
+
+                animeReady();
+            };
         };
 
+        // 执行插入动画
+        this.opt.presetInsertAnime && this.apdAnime(domArr);
         this._data = null;    // 清空 重置
 
         // 判断传进来的是个什么类型 如是 Function 可执行
@@ -397,14 +396,14 @@ var dropDownLoad = {
         if (curAlHig - this.mainAllHig <= this.mainHig) {
             if (this.opt.lowerRolling) {
                 Fn('lowerRolling');
-            } else {
-                this.loading = false, this.loader.show(0);
+            } else if (!this.opt.presetInsertAnime) {
+                this.loading = false, this.loader.css('display', 'flex');
             };
         } else {
             if (this.opt.exceedRolling) {
                 Fn('exceedRolling');
-            } else {
-                this.loading = false, this.loader.show(0);
+            } else if (!this.opt.presetInsertAnime) {
+                this.loading = false, this.loader.css('display', 'flex');
             };
         };
 
@@ -437,22 +436,24 @@ var dropDownLoad = {
         if (this.curScrTop != tag) {
             this.timer = requestAnimationFrame(function () { _this.rolling(tag) });
         } else {
-            if (!this.ajaxForm) { this.loading = false; this.loader.show(0); };
+            if (!this.opt.presetInsertAnime) { this.loading = false; this.loader.css('display', 'flex'); };
             this.timer = null;
         };
     },
 
     // 载入动画
     apdAnime: function (domArr) {
-        var _this = this;
+        var _this = this,
+            cur = domArr[this.apdAnimeTemp];
 
-        domArr[this.apdAnimeTemp].css({ 'animation-duration': '1s', 'opacity': 1 }).addClass(this.opt.presetInsertAnime);
+        cur.css({ 'animation-duration': '1s', 'opacity': 1 }).addClass(this.opt.presetInsertAnime);
 
         if (++this.apdAnimeTemp != domArr.length) {
-            setTimeout(function () { _this.apdAnime(domArr); }, 300);
+            setTimeout(function () { cur.css('will-change', 'auto'); _this.apdAnime(domArr); }, 300);
         } else {
+            cur.css('will-change', 'auto');
             this.loading = false;
-            this.loader.show(0);
+            this.loader.css('display', 'flex');
         };
     }
 };

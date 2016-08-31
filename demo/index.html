@@ -199,16 +199,16 @@
                 presetLoadingAnime: '',    // 预置加载动画 默认为 '小圈圈'
                 presetInsertAnime: '',    // 预置载入动画 默认为 '大风车'
 
-                // 构建 DOM 模版 数据为 JSON 形式时 创建出的 DOM 的结构 默认值为一个 DIV 元素 data-name 属性和数据名称对应 IMG标签数据默认装载到其 src 属性内
-                // Ajax JSON 数据页写法 请参照 Demo 文件
-                pattern: '<li><div class="box"><img data-name="url" src="" alt="" /><div class="right" data-name="content"></div></div></li>',
+                // DOM 模版 数据为 Obj 形式时 创建出的 DOM 的结构 装载数据字段 ~{数据 KEY }~ 和数据页名称对应
+                // Ajax 页写法 请参照 “AJax示例” 文件
+                pattern: '<li><div class="box"><img src="~{url}~" alt="" /><div class="right">~{content}~</div></div></li>',
 
                 // 以下俩个参数可接收函数 数据加载完成后执行 如需滚动到功能 可接收一个 Number(px) | String -> 比如 '10px' '10vw' 等类型的值 也可让函数返回这两个类型的值 触发滚动
                 exceedRolling: null,    // 内容超过视区后
                 lowerRolling: '',    // 内容不超出视区 默认为滚动到加载内容的末尾(加载动画之上) 如需取消默认行为 传 Null
 
                 // Ajax
-                url: 'ajax_json.html',
+                url: 'ajax_obj.html',
                 type: 'GET',    // 默认 GET 方式
                 ajaxData: {},    // Ajax 传参
                 page: 0,    // 默认值为 0 起始页数 程序中自行累加
